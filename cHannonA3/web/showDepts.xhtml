@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./companyTemplate.xhtml">
+
+            <ui:define name="top">
+                <h2>Show All Departments in Lehman Company</h2>
+            </ui:define>
+
+            <ui:define name="left">
+                  <h3> Useful Links </h3>
+                <ul>
+                    <li>
+                        <h:link outcome="showDepts" value="Show All Departments"/>
+                    </li>
+                    <li>
+                        <h:link outcome="showEmps" value="Show All Employees"/>
+                    </li>
+                    <li>
+                        <h:link outcome="showProjs" value="Show All Projects"/>
+                    </li>                   
+                </ul>
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Show All Departments in Lehman Company"/></h1>
+                        <h:dataTable value="#{companyBean.departments}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Department Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dname}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Department Number"/>
+                                </f:facet>
+                                
+                                <h:link value="#{item.dnumber}" outcome="deptView" >
+                                    <f:param name="dno" value="#{item.dnumber}" />
+                                </h:link>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+                
+                
+                
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./companyTemplate.xhtml">
+
+            <ui:define name="top">
+                <h2>Information about the Selected Department </h2>
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                
+                 <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Department Name and Manager"/></h1>
+                        <h:dataTable value="#{deptViewBean.deptManager}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Department Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dname}"/>
+                            </h:column>                            
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Manager Name "/>
+                                </f:facet>
+                                <h:link value="#{deptViewBean.manager.lname},#{deptViewBean.manager.fname}" outcome="empView">
+                                    <f:param name="ssn" value="#{item.mgrssn}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Manager Start Date"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mgrstartdate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+                
+                
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Department Location"/></h1>
+                        <h:dataTable value="#{deptViewBean.deptLocations}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Department Location"/>
+                                </f:facet>
+                                <h:outputText value="#{item.deptLocationsPK.dlocation}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Employees in the Department"/></h1>
+                        <h:dataTable value="#{deptViewBean.deptEmployees}" var="item">     
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Employee SSN"/>
+                                </f:facet>
+                                 <h:link value="#{item.ssn}" outcome="empView" >
+                                    <f:param name="ssn" value="#{item.ssn}" />
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Last Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lname}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="First Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fname}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+                
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Projects Controlled by the Department"/></h1>
+                        <h:dataTable value="#{deptViewBean.deptProjects}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project Number"/>
+                                </f:facet>
+                                
+                                <h:link value="#{item.pnumber}" outcome="projView" >
+                                    <f:param name="pno" value="#{item.pnumber}" />
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pname}"/>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project Location"/>
+                                </f:facet>
+                                <h:outputText value="#{item.plocation}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+               
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

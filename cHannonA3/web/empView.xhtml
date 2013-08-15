@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./companyTemplate.xhtml">
+
+            <ui:define name="top">
+                <h2>Information about the Selected Employee</h2>
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Employee Information"/></h1>
+                        <h:dataTable value="#{empView.employee}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Employee Name:"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lname}"/>
+                                <h:outputText value=", "/>
+                                <h:outputText value="#{item.fname}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Birthdate"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bdate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Address"/>
+                                </f:facet>
+                                <h:outputText value="#{item.address}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Salary"/>
+                                </f:facet>
+                                <h:outputText value="#{item.salary}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Department"/>
+                                </f:facet>
+                                <h:link value="#{item.dno.dname}" outcome="deptView">
+                                    <f:param name="dno" value="#{item.dno.dnumber}" />
+                            </h:link>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Projects Involved In"/></h1>
+                        <h:dataTable value="#{empView.empProjects}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project Number"/>
+                                </f:facet>
+                                <h:link value="#{item.project.pnumber}" outcome="projView">
+                                    <f:param name="pno" value="#{item.project.pnumber}"/>
+                                </h:link>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.project.pname}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Hours"/>
+                                </f:facet>
+                                <h:outputText value="#{item.hours}"/>
+                            </h:column>
+                            
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
